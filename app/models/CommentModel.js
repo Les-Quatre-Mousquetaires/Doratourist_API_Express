@@ -8,6 +8,16 @@ var commentSchema = new mongoose.Schema({
         type: String
     },
 
+    cmtOfCmt: [
+        {
+            content: String,
+            creator: {
+                type: Schema.Types.ObjectId,
+                ref: 'User'
+            }
+        }
+    ],
+
     creator: {
         type: Schema.Types.ObjectId,
         ref: 'User',
