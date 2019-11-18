@@ -2,7 +2,6 @@
 
 var mongoose = require('mongoose');
 var timestamps = require('mongoose-timestamp');
-var validator = require('validator');
 var Schema = mongoose.Schema;
 
 var tourSchema = new mongoose.Schema({

@@ -50,6 +50,13 @@ var userSchema = new mongoose.Schema({
         default: 'user'
     },
 
+    tours:[
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Tour'
+        }
+    ],
+
     comments: [{
         type: Schema.Types.ObjectId,
         ref: 'Comment'

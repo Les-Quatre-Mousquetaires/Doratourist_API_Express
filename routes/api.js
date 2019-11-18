@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var userController = require('../app/controllers/UsersController');
+var tourController = require('../app/controllers/ToursController');
 
 var { middlewareJWT } = require('../app/middleware/middlewareJwt');
 var uploader = require('../app/middleware/uploader');
@@ -25,5 +26,16 @@ router.route('/users/:resourceId')
   .patch(middlewareJWT, userController.update)
   .put(middlewareJWT, userController.update)
   .delete(middlewareJWT, userController.delete);
+
+/* ROUTE tour page*/
+router.route('/tours')
+  .get(middlewareJWT, tourController.index)
+  .post(middlewareJWT, tourController.new);
+
+router.route('/tours/:resourceId')
+  .get(middlewareJWT, tourController.view)
+  .patch(middlewareJWT, tourController.update)
+  .put(middlewareJWT, tourController.update)
+  .delete(middlewareJWT, tourController.delete);
 
 module.exports = router;
