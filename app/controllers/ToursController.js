@@ -7,22 +7,14 @@ const Tour = require('../models/TourModel');
 
 module.exports = {
     index: async (req, res, next) => {
-        // let { permission } = grantPermission('read:tour', req.user, null);
-        // if (!permission.granted) next();
-        // else {
-        //     let tours = await Tour.find().lean();
-        //     if (tours) {
-        //         let { resData } = customFilter(permission, tours);
-        //         res.status(200).json(resData);
-        //     } else next();
-        // }
+        
         let tours = await Tour.find();
         if (tours) {
             res.status(200).json(tours);
         } else next();
     },
     new: async (req, res, next) => {
-        if(req.user.role == 'guest') return req.status(401).json({message: 'unauthorazion'})
+        if(req.user.role == 'guest') return res.status(401).json({message: 'unauthorazion'})
         let image;
         try {
             image = req.reqFile.filter(file => file.type === 'image')[0].storagedName;
