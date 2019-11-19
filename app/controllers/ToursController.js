@@ -5,14 +5,14 @@ const Tour = require('../models/TourModel');
 
 module.exports = {
     index: async (req, res, next) => {
-        
         let tours = await Tour.find();
         if (tours) {
             res.status(200).json(tours);
         } else next();
     },
+
     new: async (req, res, next) => {
-        if(req.user.role == 'guest') return res.status(401).json({message: 'unauthorazion'})
+        if (req.user.role == 'guest') return res.status(401).json({ message: 'unauthorazion' })
         let image;
         try {
             image = req.reqFile.filter(file => file.type === 'image')[0].storagedName;
@@ -35,6 +35,7 @@ module.exports = {
         });
 
     },
+
     view: async (req, res, next) => {
         let { resourceId } = res.params;
         let tour = Tour.findById(resourceId);
@@ -42,6 +43,7 @@ module.exports = {
             res.status(200).json(tour);
         } else next();
     },
+
     update: async (req, res, next) => {
         let { resourceId } = req.params;
         let image;
@@ -56,9 +58,10 @@ module.exports = {
         }
         let tour = Tour.findByIdAndUpdate({ _id: resourceId }, { $set: tourContent }, { new: true });
         if (tour) {
-            req.status(201).json(tour);
+            res.status(201).json(tour);
         } else next();
     },
+
     delete: async (req, res, next) => {
         let { resourceId } = req.params;
         let song = await Tour.findByIdAndDelete(resourceId).catch(err => next());
