@@ -1,7 +1,5 @@
 'use strict'
 
-const { grantPermission } = require('../commons/grantPermisson');
-const { customFilter } = require('../commons/objectEditor');
 const User = require('../models/UserModel');
 const Tour = require('../models/TourModel');
 
