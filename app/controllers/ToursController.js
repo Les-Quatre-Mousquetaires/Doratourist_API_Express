@@ -22,34 +22,7 @@ module.exports = {
         } else next();
     },
     new: async (req, res, next) => {
-        // let { permission } = grantPermission('create:tour', req.user, null);
-        // if (!permission.granted) next();
-        // else {
-        //     let image;
-        //     try {
-        //         image = req.reqFile.filter(file => file.type === 'image')[0].storagedName;
-        //     } catch (e) {
-        //         image = undefined;
-        //     }
-
-        //     let tourBody = customFilter(permission, req.body);
-
-        //     let user = await User.findById(req.user._id);
-        //     let tour = new Tour({
-        //         ...tourBody.resData,
-        //         image: image,
-        //         creator: user._id
-        //     });
-        //     user.tours.push(tour._id);
-
-        //     tour.save().then(result => {
-        //         user.save();
-        //         res.status(201).json(result);
-        //     }).catch(err => {
-        //         next(err);
-        //     });
-        // }
-        //
+        if(req.user.role == 'guest') return req.status(401).json({message: 'unauthorazion'})
         let image;
         try {
             image = req.reqFile.filter(file => file.type === 'image')[0].storagedName;
