@@ -38,14 +38,6 @@ module.exports = {
 
     },
     view: async (req, res, next) => {
-        // let { resourceId } = req.params;
-        // let { permission } = grantPermission('read:tour', req.user, resourceId);
-        // if (!permission.granted) next();
-        // let tour = await Tour.findById(resourceId);
-        // if (tour) {
-        //     let { resData } = customFilter(permission, tour);
-        //     res.status(200).json(resData);
-        // } else next();
         let { resourceId } = res.params;
         let tour = Tour.findById(resourceId);
         if (tour) {
@@ -53,27 +45,6 @@ module.exports = {
         } else next();
     },
     update: async (req, res, next) => {
-        // let { resourceId } = req.params;
-        // let { permission } = grantPermission('update:tour', req.user, resourceId);
-        // if (!permission.granted) next();
-        // else {
-        //     let image;
-        //     try {
-        //         image = req.reqFile.filter(file => file.type === 'image')[0].storagedName;
-        //     } catch (err) {
-        //         image = undefined;
-        //     }
-        //     let songContent = {
-        //         ...req.body,
-        //         image: image
-        //     };
-
-        //     let song = await Tour.customUpdate(resourceId, songContent);
-        //     if (song) {
-        //         let { resData } = customFilter(permission, song);
-        //         res.status(201).json(resData);
-        //     } else next();
-        // }
         let { resourceId } = req.params;
         let image;
         try {
@@ -91,15 +62,6 @@ module.exports = {
         } else next();
     },
     delete: async (req, res, next) => {
-        // let { resourceId } = req.params;
-        // let { permission } = grantPermission('delete:song', req.user, resourceId);
-        // if (!permission.granted) next();
-        // else {
-        //     let song = await Song.customDelete(resourceId).catch(err => { next() });
-        //     if (song) {
-        //         res.status(202).json({ message: `Deleted song id: ${song._id}` });
-        //     } else next();
-        // }
         let { resourceId } = req.params;
         let song = await Tour.findByIdAndDelete(resourceId).catch(err => next());
         if (song) {
