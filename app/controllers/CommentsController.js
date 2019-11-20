@@ -14,20 +14,20 @@ module.exports = {
 
     new: async (req, res, next) => {
         if (req.user.role == 'guest') return res.status(401).json({ message: 'Un-Authorization' })
-        let tourBody = req.body;
-        let user = await User.findById(req.user._id);
-        let tour = new Tour({
-            ...tourBody,
-            image,
-            creator: user._id
-        });
-        user.tours.push(tour._id);
-        tour.save().then(result => {
-            user.save();
-            res.status(201).json(result);
-        }).catch(err => {
-            next(err);
-        });
+        // let tourBody = req.body;
+        // let user = await User.findById(req.user._id);
+        // let tour = new Tour({
+        //     ...tourBody,
+        //     image,
+        //     creator: user._id
+        // });
+        // user.tours.push(tour._id);
+        // tour.save().then(result => {
+        //     user.save();
+        //     res.status(201).json(result);
+        // }).catch(err => {
+        //     next(err);
+        // });
 
         let {resourceId} = req.params;
 
@@ -35,7 +35,7 @@ module.exports = {
         let user = await User.findById(req.user._id);
         let comment = new Comment({
             ...commentBody,
-            
+
             creator: user._id
         });
         user.comments.push(comment._id);
