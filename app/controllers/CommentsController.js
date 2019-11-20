@@ -2,25 +2,33 @@
 
 const User = require('../models/UserModel');
 const Tour = require('../models/TourModel');
+const Review = require('../models/Review');
+
+let resources = {
+    'Tour': Tour,
+    'Review': Review
+}
 
 module.exports = {
     index: async (req, res, next) => {
-        let {resourceId} = req.params;
+        let { resourceId } = req.params;
         let tours = await Tour.find().populate('comments');
-        if(tours) {
+        if (tours) {
             res.state(200).json(tours);
-        }else next();
+        } else next();
     },
 
     new: async (req, res, next) => {
+        let { resourceName } = req.resourceName;
+
         if (req.user.role == 'guest') return res.status(401).json({ message: 'Un-Authorization' });
 
-        let {resourceId} = req.params;
+        let { resourceId } = req.params;
 
         let commentBody = req.body;
 
         let user = await User.findById(req.user._id);
-        let tour = await Tour.findById(resourceId);
+        let tour = await resources[resourceName].findById(resourceId);
 
         let comment = new Comment({
             ...commentBody,

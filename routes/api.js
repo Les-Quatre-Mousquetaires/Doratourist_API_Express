@@ -1,10 +1,12 @@
 var express = require('express');
+const resource = require('../app/middleware/resource.middleware');
+
 var router = express.Router();
 
 var userController = require('../app/controllers/UsersController');
 var tourController = require('../app/controllers/ToursController');
 var commentController = require('../app/controllers/CommentsController');
-
+var { addResourceMiddleware } = require('../app/middleware/resource.middleware');
 var { middlewareJWT } = require('../app/middleware/middlewareJwt');
 var uploader = require('../app/middleware/uploader');
 
@@ -41,7 +43,7 @@ router.route('/tours/:resourceId')
 
 /* ROUTE comment */
 router.route('/tours/:resourceId/comments')
-  .get(middlewareJWT, commentController.index)
-  .post(middlewareJWT, commentController.new);
-  
+  .get(middlewareJWT, addResourceMiddleware('Tour'), commentController.index)
+  .post(middlewareJWT, addResourceMiddleware('Tour'), commentController.new);
+
 module.exports = router;
