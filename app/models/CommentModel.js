@@ -18,10 +18,14 @@ var commentSchema = new mongoose.Schema({
         }
     ],
 
-    post: {
+    review: {
+        type: Schema.Types.ObjectId,
+        ref: 'Review'
+    },
+
+    tour: {
         type: Schema.Types.ObjectId,
         ref: 'Tour',
-        required: true
     },
 
     creator: {

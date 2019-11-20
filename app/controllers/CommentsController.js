@@ -5,20 +5,15 @@ const Tour = require('../models/TourModel');
 
 module.exports = {
     index: async (req, res, next) => {
-        let tours = await Tour.find();
-        if (tours) {
-            res.status(200).json(tours);
-        } else next();
+        let {resourceId} = req.params;
+        let tours = await Tour.find().populate('comments');
+        if(tours) {
+            res.state(200).json(tours);
+        }else next();
     },
 
     new: async (req, res, next) => {
-        if (req.user.role == 'guest') return res.status(401).json({ message: 'unauthorazion' })
-        let image;
-        try {
-            image = req.reqFile.filter(file => file.type === 'image')[0].storagedName;
-        } catch (e) {
-            image = undefined;
-        }
+        if (req.user.role == 'guest') return res.status(401).json({ message: 'Un-Authorization' })
         let tourBody = req.body;
         let user = await User.findById(req.user._id);
         let tour = new Tour({
@@ -33,6 +28,18 @@ module.exports = {
         }).catch(err => {
             next(err);
         });
+
+        let {resourceId} = req.params;
+
+        let commentBody = req.body;
+        let user = await User.findById(req.user._id);
+        let comment = new Comment({
+            ...commentBody,
+            
+            creator: user._id
+        });
+        user.comments.push(comment._id);
+        
 
     },
 
