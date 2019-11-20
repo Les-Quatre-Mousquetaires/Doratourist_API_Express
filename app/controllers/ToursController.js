@@ -37,7 +37,7 @@ module.exports = {
     },
 
     view: async (req, res, next) => {
-        let { resourceId } = res.params;
+        let { resourceId } = req.params;
         let tour = await Tour.findById(resourceId);
         if (tour) {
             res.status(200).json(tour);
