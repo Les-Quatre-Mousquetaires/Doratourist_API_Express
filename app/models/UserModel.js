@@ -23,6 +23,14 @@ var userSchema = new mongoose.Schema({
         }
     },
 
+    location: {
+        type: String
+    },
+
+    phoneNumber: {
+        type: String
+    },
+
     avatar: {
         type: String
     },
@@ -50,7 +58,7 @@ var userSchema = new mongoose.Schema({
         default: 'user'
     },
 
-    tours:[
+    tours: [
         {
             type: Schema.Types.ObjectId,
             ref: 'Tour'
