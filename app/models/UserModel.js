@@ -61,7 +61,7 @@ var userSchema = new mongoose.Schema({
     books: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'Tour'
+            ref: 'Book'
         }
     ],
 

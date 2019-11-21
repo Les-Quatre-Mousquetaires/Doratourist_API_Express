@@ -28,7 +28,7 @@ router.route('/users/:resourceId')
   .put(middlewareJWT, userController.update)
   .delete(middlewareJWT, userController.delete);
 
-router.route('/users/booking')
+router.route('/booking')
   .get(middlewareJWT, userController.getBooks)
   .post(middlewareJWT, userController.newBooking);
 

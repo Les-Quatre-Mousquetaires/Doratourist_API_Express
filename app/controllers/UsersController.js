@@ -119,16 +119,19 @@ module.exports = {
 
     getBooks: async (req, res, next) => {
         let user = req.user;
+        let books;
         switch (user.role) {
             case 'guest': next(); break;
             case 'user':
-                let currentUser = await User.findById(user._id).populate('books');
-                res.status(200).json(currentUser.books);
-                break;
+                let currentUser = await User.findById(user._id).populate('books').exec();
+                if (currentUser) {
+                    res.status(200).json(currentUser.books);
+                } else next(); break;
             case 'admin':
-                let books = await Book.find().populate('tour creator');
-                res.status(200).json(books);
-                break;
+                books = await Book.find().populate('tour creator');
+                if (books) {
+                    res.status(200).json(books);
+                } else next(); break;
         }
     },
 
@@ -140,6 +143,8 @@ module.exports = {
             creator: user._id,
         });
         book.save();
+        user.books.push(book._id);
+        user.save();
         if (book) {
             res.status(201).json(book);
         } else next();
