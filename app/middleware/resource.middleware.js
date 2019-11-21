@@ -1,8 +1,6 @@
-module.export = {
-    addResourceMiddleware: (resourceName) => {
-        return (req, res, next) => {
-            req.resourceName = resourceName;
-            next();
-        }
-    }
+function addResourceMiddleware(req, res, next, resouceName) {
+    req.resourceName = resourceName;
+    next();
 }
+
+module.export = addResourceMiddleware;
