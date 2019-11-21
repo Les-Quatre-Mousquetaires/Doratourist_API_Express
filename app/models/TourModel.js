@@ -15,7 +15,7 @@ var tourSchema = new mongoose.Schema({
         require: true
     },
 
-    location:{
+    location: {
         type: String
     },
 
