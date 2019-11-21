@@ -3,7 +3,7 @@
 const Comment = require('../models/CommentModel');
 const User = require('../models/UserModel');
 const Tour = require('../models/TourModel');
-const Review = require('../models/Review');
+const Review = require('../models/ReviewModel');
 
 let resources = {
     'Tour': Tour,
@@ -42,7 +42,6 @@ module.exports = {
             user.save(); resourceObject.save();
             res.status(201).json(result);
         }).catch(err => next(err));
-
     },
 
     view: async (req, res, next) => {

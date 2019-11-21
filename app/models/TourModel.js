@@ -27,6 +27,19 @@ var tourSchema = new mongoose.Schema({
         type: Number
     },
 
+    advantages: [{
+        type: String
+    }],
+
+    info:{
+        days: {
+            type: Number
+        },
+        maxPerson:{
+            type: Number
+        }
+    },
+
     comments: [{
         type: Schema.Types.ObjectId,
         ref: 'Comment'
