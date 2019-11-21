@@ -23,7 +23,6 @@ module.exports = {
         let user = await User.findById(req.user._id);
         let tour = new Tour({
             ...tourBody,
-            image,
             creator: user._id
         });
         user.tours.push(tour._id);
