@@ -15,6 +15,10 @@ var tourSchema = new mongoose.Schema({
         require: true
     },
 
+    location:{
+        type: String
+    },
+
     image: {
         type: String,
     },
