@@ -125,7 +125,7 @@ module.exports = {
             case 'user':
                 let currentUser = await User.findById(user._id).populate('books');
                 if (currentUser) {
-                    res.status(200).json({...currentUser.books});
+                    res.status(200).json([currentUser.book]);
                 } else next(); break;
             case 'admin':
                 books = await Book.find().populate('tour creator');
