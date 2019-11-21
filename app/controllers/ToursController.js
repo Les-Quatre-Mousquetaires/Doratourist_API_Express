@@ -38,7 +38,7 @@ module.exports = {
 
     view: async (req, res, next) => {
         let { resourceId } = req.params;
-        let tour = await Tour.findById(resourceId);
+        let tour = await Tour.findById(resourceId).populate('creator');
         if (tour) {
             res.status(200).json(tour);
         } else next();
