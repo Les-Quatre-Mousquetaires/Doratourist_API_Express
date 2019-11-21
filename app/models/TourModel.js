@@ -19,6 +19,10 @@ var tourSchema = new mongoose.Schema({
         type: String,
     },
 
+    price: {
+        type: Number
+    },
+
     comments: [{
         type: Schema.Types.ObjectId,
         ref: 'Comment'

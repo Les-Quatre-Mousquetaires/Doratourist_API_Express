@@ -5,7 +5,7 @@ const Tour = require('../models/TourModel');
 
 module.exports = {
     index: async (req, res, next) => {
-        let tours = await Tour.find();
+        let tours = await Tour.find().populate('comments');
         if (tours) {
             res.status(200).json(tours);
         } else next();

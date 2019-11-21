@@ -1,5 +1,6 @@
 'use strict'
 
+const Comment = require('../models/CommentModel');
 const User = require('../models/UserModel');
 const Tour = require('../models/TourModel');
 const Review = require('../models/Review');
@@ -11,11 +12,11 @@ let resources = {
 
 module.exports = {
     index: async (req, res, next) => {
-        let { resourceId } = req.params;
-        let tours = await Tour.find().populate('comments');
-        if (tours) {
-            res.state(200).json(tours);
-        } else next();
+        // let { resourceId } = req.params;
+        // let tours = await Tour.find().populate('comments');
+        // if (tours) {
+        //     res.state(200).json(tours);
+        // } else next();
     },
 
     new: async (req, res, next) => {
@@ -28,17 +29,17 @@ module.exports = {
         let commentBody = req.body;
 
         let user = await User.findById(req.user._id);
-        let tour = await resources[resourceName].findById(resourceId);
+        let resourceObject = await resources[resourceName].findById(resourceId);
 
         let comment = new Comment({
             ...commentBody,
-            tour: tour._id,
+            [resourceName]: resourceObject._id,
             creator: user._id
         });
         user.comments.push(comment._id);
-        tour.comments.push(comment._id);
+        resourceObject.comments.push(comment._id);
         comment.save().then(result => {
-            user.save(); tour.save();
+            user.save(); resourceObject.save();
             res.status(201).json(result);
         }).catch(err => next(err));
 
@@ -46,7 +47,7 @@ module.exports = {
 
     view: async (req, res, next) => {
         let { resourceId } = req.params;
-        let tour = Tour.findById(resourceId);
+        let tour = Comment.findById(resourceId);
         if (tour) {
             res.status(200).json(tour);
         } else next();
