@@ -28,6 +28,10 @@ router.route('/users/:resourceId')
   .put(middlewareJWT, userController.update)
   .delete(middlewareJWT, userController.delete);
 
+router.route('/users/booking')
+  .get(middlewareJWT, userController.getBooks)
+  .post(middlewareJWT, userController.newBooking);
+
 /* ROUTE tour page*/
 router.route('/tours')
   .get(middlewareJWT, tourController.index)

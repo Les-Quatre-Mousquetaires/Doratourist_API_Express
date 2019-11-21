@@ -58,6 +58,13 @@ var userSchema = new mongoose.Schema({
         default: 'user'
     },
 
+    books: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Tour'
+        }
+    ],
+
     tours: [
         {
             type: Schema.Types.ObjectId,

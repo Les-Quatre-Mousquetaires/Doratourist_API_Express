@@ -3,6 +3,7 @@
 const jwt = require('jsonwebtoken');
 
 const User = require('../models/UserModel');
+const Book = require('../models/BookModel');
 const config = require('../../config/index');
 
 const { grantPermission } = require('../commons/grantPermisson');
@@ -75,7 +76,7 @@ module.exports = {
         let { resourceId } = req.params;
         let user = await User.findById(resourceId)
             .select('-password -__v').catch(err => { res.status(500).json({ message: err.errmsg }) });
-            
+
         if (user) {
             let { permission } = grantPermission('read:user', req.user, user._id);
             if (!permission.granted) next();
@@ -115,4 +116,32 @@ module.exports = {
             else next();
         }
     },
+
+    getBooks: async (req, res, next) => {
+        let user = req.user;
+        switch (user.role) {
+            case 'guest': next(); break;
+            case 'user':
+                let currentUser = await User.findById(user._id).populate('books');
+                res.status(200).json(currentUser.books);
+                break;
+            case 'admin':
+                let books = await Book.find().populate('tour creator');
+                res.status(200).json(books);
+                break;
+        }
+    },
+
+    newBooking: async (req, res, next) => {
+        let user = req.user;
+        let bookBody = req.body;
+        let book = new Book({
+            ...req.body,
+            creator: user._id,
+        });
+        book.save();
+        if (book) {
+            res.status(201).json(book);
+        } else next();
+    }
 }
