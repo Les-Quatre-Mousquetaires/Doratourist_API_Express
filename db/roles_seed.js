@@ -18,8 +18,8 @@ var grantsList = [
     { role: 'user', resource: 'user', action: 'update:own', attributes: '*, !token' },
     { role: 'user', resource: 'user', action: 'delete:own', attributes: '*' },
 
-    { role: 'guest', resource: 'user', action: 'create:any', attributes: '*, !role' },
-    { role: 'guest', resource: 'user', action: 'read:any', attributes: '*, !role, !password, !email, !token, !__v' },
+    { role: 'guest', resource: 'user', action: 'create:any', attributes: '*' },
+    { role: 'guest', resource: 'user', action: 'read:any', attributes: '*, !password, !token, !__v' },
 
     //  COMMENT Resource
     { role: 'admin', resource: 'comment', action: 'create:any', attributes: '*' },
