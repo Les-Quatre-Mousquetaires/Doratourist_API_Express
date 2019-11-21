@@ -64,9 +64,10 @@ module.exports = {
 
     delete: async (req, res, next) => {
         let { resourceId } = req.params;
-        let song = await Tour.findByIdAndDelete(resourceId).catch(err => next());
-        if (song) {
-            res.status(202).json({ ...song, deleted: true });
+        let tour = await Tour.findByIdAndDelete(resourceId).lean().catch(err => next());
+        if (tour) {
+            tour.deleted = true;
+            res.status(202).json(tour);
         }
     }
 }

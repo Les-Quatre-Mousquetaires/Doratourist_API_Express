@@ -75,7 +75,7 @@ module.exports = {
         let { resourceId } = req.params;
         let user = await User.findById(resourceId)
             .select('-password -__v').catch(err => { res.status(500).json({ message: err.errmsg }) });
-
+            
         if (user) {
             let { permission } = grantPermission('read:user', req.user, user._id);
             if (!permission.granted) next();
