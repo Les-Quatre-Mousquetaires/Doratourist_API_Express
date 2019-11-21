@@ -123,7 +123,7 @@ module.exports = {
         switch (user.role) {
             case 'guest': next(); break;
             case 'user':
-                let currentUser = await User.findById(user._id).populate('tour');
+                let currentUser = await User.findById(user._id).populate('books');
                 if (currentUser) {
                     res.status(200).json(currentUser.books);
                 } else next(); break;
