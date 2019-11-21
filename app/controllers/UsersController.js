@@ -136,7 +136,7 @@ module.exports = {
         let user = req.user;
         let bookBody = req.body;
         let book = new Book({
-            ...req.body,
+            ...bookBody,
             creator: user._id,
         });
         book.save();
