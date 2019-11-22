@@ -45,7 +45,7 @@ router.route('/tours/:resourceId')
 
 /* ROUTE comment */
 router.route('/comments')
-  .get(middlewareJWT, addResourceMiddleware('Tour'), commentController.index)
-  .post(middlewareJWT, addResourceMiddleware('Tour'), commentController.new);
+  .get(middlewareJWT, commentController.index)
+  .post(middlewareJWT, commentController.new);
 
 module.exports = router;
