@@ -44,7 +44,7 @@ router.route('/tours/:resourceId')
   .delete(middlewareJWT, tourController.delete);
 
 /* ROUTE comment */
-router.route('/tours/:resourceId/comments')
+router.route('/comments')
   .get(middlewareJWT, addResourceMiddleware('Tour'), commentController.index)
   .post(middlewareJWT, addResourceMiddleware('Tour'), commentController.new);
 
