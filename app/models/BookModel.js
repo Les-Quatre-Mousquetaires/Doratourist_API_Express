@@ -5,6 +5,10 @@ var timestamps = require('mongoose-timestamp');
 var Schema = mongoose.Schema;
 
 var bookSchema = new mongoose.Schema({
+    checkinDate: {
+        type: String
+    },
+
     tour: {
         type: Schema.Types.ObjectId,
         ref: 'Tour'
