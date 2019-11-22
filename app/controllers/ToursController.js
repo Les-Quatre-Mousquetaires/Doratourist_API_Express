@@ -55,7 +55,8 @@ module.exports = {
             ...req.body,
             image: image
         }
-        let tour = Tour.findByIdAndUpdate({ _id: resourceId }, { $set: tourContent }, { new: true });
+        console.log(tourContent);
+        let tour = await Tour.findByIdAndUpdate({ _id: resourceId }, { $set: tourContent }, { new: true });
         if (tour) {
             res.status(201).json(tour);
         } else next();
