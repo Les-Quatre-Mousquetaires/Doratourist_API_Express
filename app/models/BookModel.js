@@ -16,7 +16,7 @@ var bookSchema = new mongoose.Schema({
 
     creator: {
         type: Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User' 
     }
 });
 
