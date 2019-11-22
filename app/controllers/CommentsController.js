@@ -12,6 +12,7 @@ let resources = {
 }
 
 let comment = {
+    _id: '',
     createdAt: '',
     creator: {
         _id: '',
@@ -21,16 +22,19 @@ let comment = {
 };
 
 module.exports = {
-    index: async (req, res, next) => {
+    index: (req, res, next) => {
         let comments = [];
         for (let i = 0; i < 4; i++) {
-            comment.createdAt = new Date().toISOString().slice(0,10).replace(/-/g,"");
+            comment.createdAt = new Date().toISOString().slice(0, 10).replace(/-/g, "");
             comment.creator.name = faker.name.findName();
             comment.creator._id = faker.helpers.replaceSymbolWithNumber("################");
-            comment.content = faker.hacker.phrase();
-            comments.push(comments);
+            comment._id = faker.helpers.replaceSymbolWithNumber("################");
+            comment.content = faker.lorem.sentences(2,2);
+            comments.push(comment);
         }
-        res.status(200).json(comments);
+        if (comments) {
+            res.status(200).json(comments);
+        }
     },
 
     new: async (req, res, next) => {
