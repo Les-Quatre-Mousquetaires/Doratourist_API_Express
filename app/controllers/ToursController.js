@@ -45,15 +45,15 @@ module.exports = {
 
     update: async (req, res, next) => {
         let { resourceId } = req.params;
-        let image;
-        try {
-            image = req.reqFile.filter(file => file.type === 'image')[0].storagedName;
-        } catch (err) {
-            image = undefined;
-        }
+        // let image;
+        // try {
+        //     image = req.reqFile.filter(file => file.type === 'image')[0].storagedName;
+        // } catch (err) {
+        //     image = undefined;
+        // }
         let tourContent = {
             ...req.body,
-            image: image
+            // image: image
         }
         console.log(tourContent);
         let tour = await Tour.findByIdAndUpdate({ _id: resourceId }, { $set: tourContent }, { new: true });
