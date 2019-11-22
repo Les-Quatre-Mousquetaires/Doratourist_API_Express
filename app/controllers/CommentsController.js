@@ -5,6 +5,7 @@ const User = require('../models/UserModel');
 const Tour = require('../models/TourModel');
 const Review = require('../models/ReviewModel');
 const faker = require('faker');
+const dateFormat = require('dateformat');
 
 let resources = {
     'Tour': Tour,
@@ -25,7 +26,7 @@ module.exports = {
     index: (req, res, next) => {
         let comments = [];
         for (let i = 0; i < 4; i++) {
-            comment.createdAt = new Date().toISOString().slice(0, 10).replace(/-/g, "");
+            comment.createdAt = dateFormat(new Date(), "dddd, mmmm dS, yyyy, hh:MM");
             comment.creator.name = faker.name.findName();
             comment.creator._id = faker.helpers.replaceSymbolWithNumber("################");
             comment._id = faker.helpers.replaceSymbolWithNumber("################");
